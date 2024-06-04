@@ -1,5 +1,32 @@
 {
-    "users": [],
-    "albums": [],
-    "photos": []
+  "users": [
+    {
+      "id": "e653",
+      "name": "Percy Harber"
+    },
+    {
+      "id": "3da3",
+      "name": "Glen Dooley"
+    },
+    {
+      "id": "5154",
+      "name": "Mr. Ruben Stracke Jr."
+    },
+    {
+      "id": "da8d",
+      "name": "Leon Swift"
+    },
+    {
+      "id": "57ef",
+      "name": "Sidney Mante"
+    }
+  ],
+  "albums": [
+    {
+      "id": 10,
+      "title": "Hiking Trip",
+      "userId": "57ef"
+    }
+  ],
+  "photos": []
 }
