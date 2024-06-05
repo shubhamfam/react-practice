@@ -1,13 +1,43 @@
-import { useFetchAlbumsQuery } from "../store";
-import { albumsApi } from "../store/apis/albumsApi";
+import { useFetchAlbumsQuery, useAddAlbumMutation } from "../store";
+import Skeleton from "./Skeleton";
+import ExpandablePanel from "./ExpandablePanel";
+import Button from "./Button";
+import AlbumsListItem from "./AlbumsListItem";
+
 function AlbumsList({ user }) {
-    console.log(albumsApi.endpoints());
-    console.log(useFetchAlbumsQuery)
-    // const results = useFetchAlbumsQuery(user);
-    // console.log(results)
+    const { data, error, isFetching } = useFetchAlbumsQuery(user);
+    const [addAlbum, results] = useAddAlbumMutation();
 
+    let content;
+    
+    if (isFetching) {
+        content = <Skeleton times={3} className="h-10 w-full"/>
+    } else if (error) {
+        content = <div>Error loading albums.</div>
+    } else {
+        content = data.map(album => {
+            
+            return <AlbumsListItem key={album.id} album={album}/>
+        })
+    }
 
-    return <div>Albums for {user.name}</div>
+    const handleAddAlbum = () => {
+        addAlbum(user);
+    };
+
+    return (
+        <div>
+            <div className="m-2 flex flex-row items-center justify-between">
+                <h3 className="text-lg font-bold">
+                    Albums for {user.name}
+                </h3>
+                <Button onClick={handleAddAlbum} loading={results.isLoading}>+ Add Album</Button>
+            </div>
+            <div>
+                {content}
+            </div>
+        </div>
+    );
 }
 
 export default AlbumsList;
